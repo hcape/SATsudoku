@@ -2,23 +2,23 @@
 SAT solver for sudoku puzzles
 
 
-ans.txt -> the encoded solution from the minisat. Output from minisat. File read in sat2sud
-cnf.txt -> the encoded rules to input to the minisat. Output from sud2sat. Input to minisat.
-solved.txt -> the decoded solved solutions to the sudoku. Output from sat2sud
-stats.txt -> Stats from solving the minisat. Console output from minisat
-sudoku.txt -> Sudoku problem. File read in sud2sat
+ans.txt -> the encoded solution from the minisat. Output from minisat. File read in sat2sud  
+cnf.txt -> the encoded rules to input to the minisat. Output from sud2sat. Input to minisat.  
+solved.txt -> the decoded solved solutions to the sudoku. Output from sat2sud  
+stats.txt -> Stats from solving the minisat. Console output from minisat  
+sudoku.txt -> Sudoku problem. File read in sud2sat  
 
 In the form
-Grid 50
-300200000
-000107000
-706030500
-070009080
-900020004
-010800050
-009040301
-000702000
-000008006
+Grid 50  
+300200000  
+000107000  
+706030500  
+070009080  
+900020004  
+010800050  
+009040301  
+000702000  
+000008006  
 
 1. Update sudoku file with puzzle
 2. Run python sud2sat.py
@@ -27,13 +27,13 @@ Grid 50
 
 Todo
 Basic:
-Aggregate stats data
-Write report
-Comment and clean code
-Makefile or something
+ * Aggregate stats data
+ * Write report
+ * Comment and clean code
+ * Makefile or something
 
 Advanced:
-Do hard problems
-Try at least one alternate to the minimal encoding (?)
-Try another SAT solver
-Comparison to special-purpose Sudoku solvers
+* Do hard problems
+* Try at least one alternate to the minimal encoding (?)
+* Try another SAT solver
+* Comparison to special-purpose Sudoku solvers
