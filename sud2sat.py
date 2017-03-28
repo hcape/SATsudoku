@@ -1,32 +1,85 @@
+#!/usr/bin/python
+
+import sys
+
 row_pos = 1;
 col_pos = 1;
 outline = ""
 clause_count = 0
+global f
 
 
 def base9 (i,j,k):
     return (81*(i-1) + 9*(j-1) + (k-1) + 1)
 #one number per cell rule
 
-sud_file = open('sudoku.txt', 'r')
-f = open('temp.txt', 'w')
-for line in sud_file:
-    if(line[0].isdigit()):
+def read():
+    global row_pos
+    global col_pos
+    global outline
+    global clause_count
+    global f
+    
+    sud_file = open('sudoku.txt', 'r')
+    f = open('temp.txt', 'w')
+    for line in sud_file:
+        if(line[0].isdigit()):
+            col_pos = 1
+            for char in line:
+                if char != '0' and char != '\n':
+                    outline = str(81*(row_pos -1) + 9*(col_pos-1) + (int(char) -1) + 1) + " 0" +'\n'
+                    f.write(outline)
+                    clause_count = clause_count + 1
+                    
+                col_pos = col_pos + 1
+            row_pos = row_pos + 1   
+    print(clause_count)
+
+
+
+def read_hard():
+    global row_pos
+    global col_pos
+    global outline
+    global clause_count
+    global f
+    
+    sud_file = open('sudoku_hard.txt', 'r')
+    f = open('temp_hard.txt', 'w')
+    
+    #each line is one puzzle
+    for line in sud_file:
         col_pos = 1
         for char in line:
-            if char != '0' and char != '\n':
+            if char != '.' and char != '\n':
+                #print(str(81*(row_pos -1) + 9*(col_pos-1) + (int(char) -1) + 1))
+                #print("row_pos  = {}, col_pos = {}, char = {}".format(row_pos, col_pos, char))
+                
                 outline = str(81*(row_pos -1) + 9*(col_pos-1) + (int(char) -1) + 1) + " 0" +'\n'
                 f.write(outline)
                 clause_count = clause_count + 1
-                
-            col_pos = col_pos + 1
-        row_pos = row_pos + 1   
-print(clause_count)
+
+
+            col_pos = (col_pos % 9) + 1
+            if col_pos == 1:
+                row_pos = (row_pos % 9 ) + 1
+
+
+    print(clause_count)
+
+
+if len(sys.argv) > 1:
+    if sys.argv[1] == 'hard':
+        # read "hard" format
+        read_hard()
+    else:
+        sys.exit("optional argument 'hard' not found")
+else:
+    read()
 
 
 
 #all contain a number rule
-
 for i in range(81):
     outline=""
     for j in range(1,10):
@@ -34,7 +87,7 @@ for i in range(81):
     outline = outline + '0'
     outline = outline + '\n'
     f.write(outline)
-    clause_count =clause_count + 1
+    clause_count = clause_count + 1
 print(clause_count)
     
 outline=""
@@ -128,10 +181,19 @@ for k in range(1,10):
 print(clause_count)
                         
 
-
 f.close()
-in_file = open('temp.txt', 'r')
-out_file = open('cnf.txt', 'w')
+
+if len(sys.argv) > 1:
+    if sys.argv[1] == 'hard':
+        in_file = open('temp_hard.txt', 'r')
+        out_file = open('cnf_hard.txt', 'w')
+        
+    else:
+        sys.exit("optional argument 'hard' not found")
+else:
+    in_file = open('temp.txt', 'r')
+    out_file = open('cnf.txt', 'w')
+
 
 out_file.write("p cnf 729 " + str(clause_count) + " \n")
 for line in in_file:
