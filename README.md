@@ -2,6 +2,15 @@
 
 *A SAT solver for sudoku puzzles*
 
+## Getting started
+
+1. Update sudoku file with puzzle
+2. Run python sud2sat.py
+3. Run minisat cnf.txt ans.txt ( with >> stats.txt to accumulated stats)
+4. Run python sat2sud.py (with >> solved.txt to accumulated solved grids)
+
+### Files
+
 * `ans.txt` the encoded solution from the `minisat`. Output from `minisat`. File read in `sat2sud`.
 * `cnf.txt` -> the encoded rules to input to the `minisat`. Output from `sud2sat`. Input to `minisat`.
 * `solved.txt` -> the decoded solved solutions to the sudoku. Output from `sat2sud`.
@@ -12,7 +21,7 @@ In the form
 
 ```
 Grid 50
-300200000 
+300200000
 000107000
 706030500
 070009080
@@ -22,11 +31,6 @@ Grid 50
 000702000
 000008006
 ```
-
-1. Update sudoku file with puzzle
-2. Run python sud2sat.py
-3. Run minisat cnf.txt ans.txt ( with >> stats.txt to accumulated stats)
-4. Run python sat2sud.py (with >> solved.txt to accumulated solved grids)
 
 ## Todo
 
