@@ -8,14 +8,15 @@ Before running:
 
 ```bash
 sudo apt install python-minimal -y
+sudo apt install minisat -y
 ```
 
 To solve a puzzle:
 
 1. Update sudoku file with puzzle
-2. Run python sud2sat.py
-3. Run minisat cnf.txt ans.txt ( with >> stats.txt to accumulated stats)
-4. Run python sat2sud.py (with >> solved.txt to accumulated solved grids)
+2. Run `python sud2sat.py <input> tmp/cnf.txt`
+3. Run `minisat tmp/cnf.txt tmp/out.txt` ( with `>> stats.txt` to accumulate stats)
+4. Run `python sat2sud.py tmp/out.txt` (with `>> solved.txt` to accumulated solved grids)
 
 ### Files
 
