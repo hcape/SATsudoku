@@ -4,6 +4,14 @@
 
 ## Getting started
 
+Before running:
+
+```bash
+sudo apt install python-minimal -y
+```
+
+To solve a puzzle:
+
 1. Update sudoku file with puzzle
 2. Run python sud2sat.py
 3. Run minisat cnf.txt ans.txt ( with >> stats.txt to accumulated stats)

@@ -53,3 +53,4 @@ $RECYCLE.BIN/
 ### Project ###
 dist/
 tmp/
+out/
