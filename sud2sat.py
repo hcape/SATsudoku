@@ -1,7 +1,11 @@
 #!/usr/bin/python
 
-import sys
+import sys, logging
+import string
 
+N = 9
+
+# logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 
 def base9(i, j, k):
     """Convert a number to base 9"""
@@ -17,30 +21,37 @@ def main(input_fname, output_fname):
 
     with open(input_fname, 'r') as in_file:
 
-        for line in in_file:
-            if(line[0].isdigit()):
-                col_pos = 1
-                for char in line:
-                    if char != '0' and char != '\n':
-                        outline = str(
-                            81 * (row_pos - 1) + 9 * (col_pos - 1) + (int(char) - 1) + 1) + " 0" + '\n'
-                        rules += outline
-                        clause_count = clause_count + 1
+        while True:
+            char = '\0'
+            col_pos = 1
+            while True:
+                char = in_file.read(1)
+                if char in string.whitespace:
+                    continue
+                elif char not in '0.*?':
+                    outline = str(N**2 * (row_pos - 1) + 9 * (col_pos - 1) + (int(char) - 1) + 1) + " 0" + '\n'
+                    rules += outline
+                    clause_count += 1
+                logging.debug('%d:%d', row_pos, col_pos)
 
-                    col_pos = col_pos + 1
-                row_pos = row_pos + 1
-        print(clause_count)
+                col_pos += 1
+                if col_pos > 9:
+                    break
+            row_pos += 1
+            if row_pos > 9:
+                break
+        logging.debug(clause_count)
 
         # all contain a number rule
-        for i in range(81):
+        for i in range(N**2):
             outline = ""
             for j in range(1, 10):
                 outline = outline + str(i * 9 + j) + " "
             outline = outline + '0'
             outline = outline + '\n'
             rules += outline
-            clause_count = clause_count + 1
-        print(clause_count)
+            clause_count += 1
+        logging.debug(clause_count)
 
         outline = ""
         # once per row rule
@@ -51,8 +62,8 @@ def main(input_fname, output_fname):
                         outline = str(-base9(i, j, k)) + " " + \
                             str(-base9(i, l, k)) + " 0" + '\n'
                         rules += outline
-                        clause_count = clause_count + 1
-        print(clause_count)
+                        clause_count += 1
+        logging.debug(clause_count)
 
         outline = ""
         # once per column rule
@@ -64,29 +75,8 @@ def main(input_fname, output_fname):
                         outline = str(-base9(i, j, k)) + " " + \
                             str(-base9(l, j, k)) + " 0" + '\n'
                         rules += outline
-                        clause_count = clause_count + 1
-        print(clause_count)
-
-        # one 1 per col 1
-        #-1 -82
-        #-1 -163
-        #...
-        #-1 -649
-        #
-        # one 2 per col 1
-        #-2 -83
-        #...
-        #-2 -650
-        #
-        # one 1 per col 2
-        #-10 -91
-        #-10 -172
-        #...
-        #
-        # one 9 per col 9
-        #-81 -162
-        #...
-        #-81 -729
+                        clause_count += 1
+        logging.debug(clause_count)
 
         count = 0
         outline = ""
@@ -105,8 +95,8 @@ def main(input_fname, output_fname):
                                     str(-base9(i, jp, k)) + " 0" + '\n'
                                 rules += outline
                                 count = count + 1
-                                clause_count = clause_count + 1
-        print(clause_count)
+                                clause_count += 1
+        logging.debug(clause_count)
 
         count = 0
         outline = ""
@@ -127,8 +117,8 @@ def main(input_fname, output_fname):
                                         str(-base9(ip, jp, k)) + " 0" + '\n'
                                     rules += outline
                                     count = count + 1
-                                    clause_count = clause_count + 1
-        print(clause_count)
+                                    clause_count += 1
+        logging.debug(clause_count)
 
     with open(output_fname, 'w') as out_file:
         out_file.write("p cnf 729 {0} \n".format(clause_count))

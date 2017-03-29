@@ -1,9 +1,34 @@
 #!/usr/bin/python
+# coding: utf-8
 
 import sys
 
+N = 9
+
+GRID = '┏━━━┯━━━┯━━━┳━━━┯━━━┯━━━┳━━━┯━━━┯━━━┓\n' + \
+       '┃ {} │ {} │ {} ┃ {} │ {} │ {} ┃ {} │ {} │ {} ┃\n' + \
+       '┠───┼───┼───╂───┼───┼───╂───┼───┼───┨\n' + \
+       '┃ {} │ {} │ {} ┃ {} │ {} │ {} ┃ {} │ {} │ {} ┃\n' + \
+       '┠───┼───┼───╂───┼───┼───╂───┼───┼───┨\n' + \
+       '┃ {} │ {} │ {} ┃ {} │ {} │ {} ┃ {} │ {} │ {} ┃\n' + \
+       '┣━━━┿━━━┿━━━╋━━━┿━━━┿━━━╋━━━┿━━━┿━━━┫\n' + \
+       '┃ {} │ {} │ {} ┃ {} │ {} │ {} ┃ {} │ {} │ {} ┃\n' + \
+       '┠───┼───┼───╂───┼───┼───╂───┼───┼───┨\n' + \
+       '┃ {} │ {} │ {} ┃ {} │ {} │ {} ┃ {} │ {} │ {} ┃\n' + \
+       '┠───┼───┼───╂───┼───┼───╂───┼───┼───┨\n' + \
+       '┃ {} │ {} │ {} ┃ {} │ {} │ {} ┃ {} │ {} │ {} ┃\n' + \
+       '┣━━━┿━━━┿━━━╋━━━┿━━━┿━━━╋━━━┿━━━┿━━━┫\n' + \
+       '┃ {} │ {} │ {} ┃ {} │ {} │ {} ┃ {} │ {} │ {} ┃\n' + \
+       '┠───┼───┼───╂───┼───┼───╂───┼───┼───┨\n' + \
+       '┃ {} │ {} │ {} ┃ {} │ {} │ {} ┃ {} │ {} │ {} ┃\n' + \
+       '┠───┼───┼───╂───┼───┼───╂───┼───┼───┨\n' + \
+       '┃ {} │ {} │ {} ┃ {} │ {} │ {} ┃ {} │ {} │ {} ┃\n' + \
+       '┗━━━┷━━━┷━━━┻━━━┷━━━┷━━━┻━━━┷━━━┷━━━┛\n'
+
 def neg(el):
     return el > 0
+
+
 
 def main(input_fname):
     with open(input_fname, 'r') as in_file:
@@ -14,23 +39,20 @@ def main(input_fname):
             verts.append([int(val) for val in line.split() if int(val) > 0])
 
 
-        Matrix =  [[0 for x in range(9)] for y in range(9)]
+        Matrix =  [[0 for x in range(N)] for y in range(N)]
 
         for num in verts[0]:
             num = num - 1
-            row_mod = divmod(num, 81)
+            row_mod = divmod(num, N**2)
             row_num = row_mod[0]
-            col_mod = divmod(row_mod[1], 9)
+            col_mod = divmod(row_mod[1], N)
             col_num = col_mod[0]
             value_in_square = col_mod[1] + 1
             #print(num, row_num, col_num)
             Matrix[row_num][col_num] = value_in_square
 
-        print("Solved ________________________")
-        for i in range(9):
-            for j in range(9):
-                print '|' + str(Matrix[i][j]) + '|'
-            print('\n')
+        print '\n{:^{width}}'.format('Solution', width=37)
+        print GRID.format(*[cell for row in Matrix for cell in row])
 
 
 if __name__ == "__main__":
