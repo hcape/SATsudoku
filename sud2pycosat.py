@@ -113,15 +113,9 @@ def main(input_fname, output_fname):
                                     count = count + 1
                                     clause_count += 1
         logging.debug(clause_count)
-
-    print( pycosat.solve(rules) )
     
     with open(output_fname, 'w') as out_file:
-        out_file.write("p cnf 729 {0} \n".format(clause_count))
-
-        for item in rules:
-            out_file.write(str(item))
-            out_file.write("\n")
+        out_file.write( str(pycosat.solve(rules)) )
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
