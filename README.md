@@ -2,6 +2,15 @@
 
 *A SAT solver for sudoku puzzles*
 
+### Team Members
+
+| Name         | Student #  |
+| ---          | ---        |
+| Heather Cape |  V00795197 |
+| Brynn Hawker |  V00797467 |
+| Boyang Jiao  |  V00800928 |
+
+
 ## Getting started
 
 Before running make sure to
