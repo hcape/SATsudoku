@@ -13,18 +13,13 @@
 
 ## Getting started
 
-The SAT translators are written in Python (2.7). Before running make sure to
+### Requirements
 
-```bash
-sudo apt install python-minimal -y
-sudo apt install minisat -y
-```
+* Ubuntu 16.04 LTS 64bit
+* Python 2.7 (`sudo apt install python-minimal -y`)
+* Minisat (`sudo apt install minisat -y`)
 
-You may need want to
-
-```bash
-sudo chmod u+x *.sh
-```
+You may need to `sudo chmod u+x *.sh` to get the scripts to run.
 
 ### Single puzzle file
 
@@ -34,7 +29,7 @@ To solve/test a single puzzle you can use the `test.sh` script
 ./test.sh <puzzle file>
 ```
 
-make sure your puzzle file **only a sudoku puzzle** with no extra lines.
+make sure your puzzle file contains **only a sudoku puzzle** with no extra lines.
 
 ### Multiline puzzle file
 
@@ -48,7 +43,7 @@ make sure your file has **exactly 1 puzzle per line** and no trailing new line.
 
 The results will be placed in the `out/` directory.
 
-### Running individual portions
+### Manual Testing
 
 If you'd like to manually run a translator you can perform the actions in `test.sh` by hand. For example, to solve the sudoku in `tests/simple.txt`,
 
