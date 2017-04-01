@@ -10,7 +10,6 @@ fi
 
 # Prep
 mkdir -p tmp
-mkdir -p out
 
 # Convert to CNF in DIMACS
 python sud2sat.py $1 tmp/$(basename $1).cnf
